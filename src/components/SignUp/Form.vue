@@ -11,15 +11,15 @@
         <el-form-item label="主办方类别" required="" prop="type">
           <el-select v-model="signForm.type" value="">
             <el-option label="个人" value="0">个人</el-option>
-            <el-option value="社团">社团</el-option>
-            <el-option value="学校">学校</el-option>
-            <el-option value="企业">企业</el-option>
+            <el-option label="社团" value="1">社团</el-option>
+            <el-option label="学校" value="2">学校</el-option>
+            <el-option label="企业" value="3">企业</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="负责人ID" required="" prop="leaderID">
           <el-input v-model="signForm.leaderID"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item style="float: right;">
           <el-button @click="onSub('signForm')">提交</el-button>
         </el-form-item>
       </el-form>
@@ -29,16 +29,17 @@
 <script>
   import ElementUI from 'element-ui'
   import Vue from 'vue'
-  import 'element-ui/lib/theme-default/index.css'
-  import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue"
   import * as service from '../../service/services'
+  import CheckForm from "./Check.vue";
+  import router from '../../router'
 
-  Vue.use(ElementUI)
+  Vue.use(ElementUI);
   export default {
-    components: {ElButton},
     name: 'signForm',
+    components: {CheckForm},
     data() {
       return {
+        check: 'no',
         signForm: {
           name: '',
           type: '',
@@ -63,7 +64,9 @@
         console.log(this);
         this.$refs[formName].validate((valid) =>{
           if (valid) {
-            service.signUpParty(this.signForm)
+            const result = service.signUpParty(this.signForm);
+            console.log(result);
+            router.push({name:'check', params:{hostName: this.name, hostType: this.type, leaderID: this.leaderID}});
           } else {
             return false;
           }
