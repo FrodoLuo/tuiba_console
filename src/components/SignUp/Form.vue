@@ -10,10 +10,10 @@
         </el-form-item>
         <el-form-item label="主办方类别" required="" prop="type">
           <el-select v-model="signForm.type" value="">
-            <el-option label="个人" value="0">个人</el-option>
-            <el-option label="社团" value="1">社团</el-option>
-            <el-option label="学校" value="2">学校</el-option>
-            <el-option label="企业" value="3">企业</el-option>
+            <el-option label="个人" value=0>个人</el-option>
+            <el-option label="社团" value=1>社团</el-option>
+            <el-option label="学校" value=2>学校</el-option>
+            <el-option label="企业" value=3>企业</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="负责人ID" required="" prop="leaderID">
@@ -45,6 +45,7 @@
           type: '',
           leaderID: ''
         },
+        typeList: {'0':'个人', '1': '社团', '2': '学校', '3': '企业'},
         rules: {
           name: [
             { required: true, message: '主办方姓名不能为空', trigger: 'change' }
@@ -59,14 +60,26 @@
       }
     },
     methods: {
-      onSub(formName) {
+      onSub (formName) {
         console.log(formName);
         console.log(this);
+
         this.$refs[formName].validate((valid) =>{
           if (valid) {
-            const result = service.signUpParty(this.signForm);
-            console.log(result);
-            router.push({name:'check', params:{hostName: this.name, hostType: this.type, leaderID: this.leaderID}});
+            console.log(this.typeList);
+            let typeName=this.typeList[this.signForm.type];
+            console.log(typeName);
+            this.$router.push(
+              {
+                path: 'PartySignUp/check/',
+                query: {
+                  hostName: this.signForm.name,
+                  hostType: this.signForm.type,
+                  leaderID: this.signForm.leaderID,
+                  typeName
+                }
+              }
+            );
           } else {
             return false;
           }

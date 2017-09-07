@@ -19,8 +19,9 @@ export default new Router({
       component: Form
     },
     {
-      path: '/PartySignUp/check',
+      path: '/PartySignUp/check/',
       name: 'check',
+      params: ['hostName', 'hostType', 'leaderID'],
       component: CheckForm
     }
   ]
