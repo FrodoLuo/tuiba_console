@@ -1,19 +1,23 @@
 import axios from 'axios'
-import qs from 'qs'
+import Qs from 'qs'
 
-axios.defaults.timeout=500;
-axios.defaults.headers.post['Content-Type']= 'text/plain;charset=utf-8';
-axios.defaults.baseURL='http://localhost:8080';
+axios.defaults.baseURL='api/';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export function signUpParty(form){
   console.log(form);
-  return axios.get('/service',{
-    params: {
-      name: form.name,
-      type: form.type,
-      leaderID: form.leaderID
-    }
-  }).then(function (response){
-    console.log('service:' + response.data);
+  const holderVO = {
+    holderName: form.holderName,
+    holderId: form.holderId,
+    holderType: form.holderType,
+    contact: form.contact,
+    place: form.place,
+    portraitUrl: '',
+    backgroundUrl: '',
+  };
+  const formData = new FormData();
+  formData.append('holderVO', form);
+  axios.post('holder/registerHolder',{
+    holderVO: JSON.stringify(holderVO),
   })
 }

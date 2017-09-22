@@ -4,20 +4,26 @@
       主办方信息确认
     </div>
     <el-row type="flex" class="background">
-      <el-form :model="signForm" ref="signForm" :rules="rules" labelWidth="150px">
+      <el-form labelWidth="150px">
         <el-form-item label="主办方名称">
-          <span>{{ hostName }}</span>
+          <span>{{ formdata.holderName }}</span>
         </el-form-item>
         <el-form-item label="主办方类别">
-          <span>{{ typeName }}</span>
+          <span>{{ formdata.typeName }}</span>
         </el-form-item>
         <el-form-item label="负责人ID">
-          <span>{{ leaderID }}</span>
+          <span>{{ formdata.holderId }}</span>
+        </el-form-item>
+        <el-form-item label="负责人联系方式">
+          <span>{{ formdata.contact }}</span>
+        </el-form-item>
+        <el-form-item label="地点">
+          <span>{{ formdata.place }}</span>
         </el-form-item>
         <el-form-item >
-          <el-button @click="onSub('signForm')" type="primary">提交</el-button>
+          <el-button  type="primary" @click="this.handleSub">提交</el-button>
           <router-link to="/PartySignUp">
-            <el-button @click="onCancel">取消</el-button>
+            <el-button>取消</el-button>
           </router-link>
         </el-form-item>
       </el-form>
@@ -26,6 +32,7 @@
 </template>
 <script>
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
+  import * as service from '../../service/services';
 
   export default {
     components: {ElButton},
@@ -33,11 +40,20 @@
     data: function(){
       console.log(this.$route);
       return {
-        hostName: this.$route.query.hostName,
-        hostType: this.$route.query.hostType,
-        typeName: this.$route.query.typeName,
-        leaderID: this.$route.query.leaderID
+        formdata:{
+          holderName: this.$route.query.holderName,
+          holderType: this.$route.query.holderType,
+          typeName: this.$route.query.typeName,
+          holderId: this.$route.query.holderId,
+          contact: this.$route.query.contact,
+          place: this.$route.query.place,
+        }
       };
+    },
+    methods: {
+      handleSub: function() {
+        service.signUpParty(this.formdata);
+      }
     }
   }
 </script>

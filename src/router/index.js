@@ -2,14 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Form from '@/components/SignUp/Form'
-import CheckForm from '@/components/SignUp/Check'
+import CipherPage from '@/components/Ciphers/CipherPage.vue'
+import CheckPage from '@/components/SignUp/Check.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'Hello',
       component: Hello
     },
@@ -19,10 +20,14 @@ export default new Router({
       component: Form
     },
     {
-      path: '/PartySignUp/check/',
-      name: 'check',
-      params: ['hostName', 'hostType', 'leaderID'],
-      component: CheckForm
+      path: '/check',
+      name: 'Check',
+      component: CheckPage,
+    },
+    {
+      path: '/Cipher',
+      name: 'cipher',
+      component: CipherPage
     }
   ]
 })

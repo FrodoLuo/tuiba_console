@@ -6,7 +6,7 @@
           <tb-header></tb-header>
           <el-menu router defaultActive="/PartySignUp">
             <el-menu-item index="/PartySignUp" disabled="">社团录入</el-menu-item>
-            <el-menu-item index="/PreOp" disabled="">权限操作</el-menu-item>
+            <el-menu-item index="/Cipher" disabled="">AES加密测试</el-menu-item>
           </el-menu>
         </el-col>
         <el-col :span="20">
