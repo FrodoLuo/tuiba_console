@@ -33,9 +33,12 @@
 <script>
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
   import * as service from '../../service/services';
+  import ElDialog from "../../../node_modules/element-ui/packages/dialog/src/component.vue";
 
   export default {
-    components: {ElButton},
+    components: {
+      ElDialog,
+      ElButton},
     name: "check-form",
     data: function(){
       console.log(this.$route);
@@ -52,7 +55,19 @@
     },
     methods: {
       handleSub: function() {
-        service.signUpParty(this.formdata);
+        const result =service.signUpParty(this.formdata);
+        result.then((data) => {
+          console.log(data);
+          if(data.data.message === 52) {
+            this.$msgbox({
+              title: '添加成功',
+            });
+            this.$router.push({
+              path: '/'
+            })
+          }
+        })
+
       }
     }
   }

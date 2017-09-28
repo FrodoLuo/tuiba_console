@@ -2,7 +2,6 @@ import axios from 'axios'
 import Qs from 'qs'
 
 axios.defaults.baseURL='api/';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export function signUpParty(form){
   console.log(form);
@@ -17,7 +16,12 @@ export function signUpParty(form){
   };
   const formData = new FormData();
   formData.append('holderVO', form);
-  axios.post('holder/registerHolder',{
-    holderVO: JSON.stringify(holderVO),
+  return axios.post(
+      'holder/registerHolder',
+    JSON.stringify(holderVO),
+    {
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      }
   })
 }

@@ -13,9 +13,10 @@
     "axios": "^0.16.2",
     "element-ui": "^1.4.4",
     "js-md5": "^0.6.0",
+    "qs": "latest",
     "vue": "^2.4.4",
     "vue-router": "^2.7.0",
-    "qs": "latest"
+    "vuex": "^2.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
