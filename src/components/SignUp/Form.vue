@@ -11,9 +11,9 @@
         <el-form-item label="主办方类别" prop="holderType">
           <el-select v-model="signForm.holderType" value="">
             <el-option label="个人" value="0">个人</el-option>
-            <el-option value="社团">社团</el-option>
-            <el-option value="学校">学校</el-option>
-            <el-option value="企业">企业</el-option>
+            <el-option label="社团" value="1">社团</el-option>
+            <el-option label="学校" value="2">学校</el-option>
+            <el-option label="企业" value="3">企业</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="负责人用户名" prop="holderId">
@@ -24,6 +24,9 @@
         </el-form-item>
         <el-form-item label="地点" prop="place">
           <el-input v-model="signForm.place"></el-input>
+        </el-form-item>
+        <el-form-item label="学校" prop="schoolName">
+          <el-input v-model="signForm.schoolName"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="onSubmit('signForm')">提交</el-button>
@@ -50,6 +53,7 @@
           holderId: '',
           contact: '',
           place: '',
+          schoolName: '',
         },
         typeList: ['个人', '社团', '学校' ,'企业'],
         rules: {
@@ -58,6 +62,7 @@
           holderId: { required: true },
           contact: { required: true },
           place: { required: true },
+          schoolName: { required: true }
         },
       }
     },
@@ -78,7 +83,8 @@
                   holderId: this.signForm.holderId,
                   contact: this.signForm.contact,
                   place: this.signForm.place,
-                  typeName
+                  typeName,
+                  schoolName: this.signForm.schoolName,
                 }
               }
             );

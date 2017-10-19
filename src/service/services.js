@@ -6,18 +6,19 @@ axios.defaults.baseURL='api/';
 export function signUpParty(form){
   console.log(form);
   const holderVO = {
-    holderName: form.holderName,
-    holderId: form.holderId,
-    holderType: form.holderType,
+    partyName: form.holderName,
+    managerUsername: form.holderId,
+    partyType: form.holderType,
     contact: form.contact,
     place: form.place,
-    portraitUrl: '',
-    backgroundUrl: '',
+    schoolName: form.schoolName,
+    partyImgUrl: null,
   };
   const formData = new FormData();
   formData.append('holderVO', form);
+  console.log(JSON.stringify(holderVO));
   return axios.post(
-      'holder/registerHolder',
+      'party/registerParty',
     JSON.stringify(holderVO),
     {
       headers: {

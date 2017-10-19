@@ -20,11 +20,12 @@
         <el-form-item label="地点">
           <span>{{ formdata.place }}</span>
         </el-form-item>
+        <el-form-item label="学校">
+          <span>{{ formdata.schoolName }}</span>
+        </el-form-item>
         <el-form-item >
           <el-button  type="primary" @click="this.handleSub">提交</el-button>
-          <router-link to="/PartySignUp">
-            <el-button>取消</el-button>
-          </router-link>
+          <el-button @click="this.back">取消</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -50,11 +51,19 @@
           holderId: this.$route.query.holderId,
           contact: this.$route.query.contact,
           place: this.$route.query.place,
+          schoolName: this.$route.query.schoolName,
         }
       };
     },
     methods: {
+      back: function() {
+        this.$router.back();
+      },
       handleSub: function() {
+        const msgList = {
+          9: '负责人用户名不存在',
+          54: '社团名已存在',
+        };
         const result =service.signUpParty(this.formdata);
         result.then((data) => {
           console.log(data);
@@ -64,6 +73,10 @@
             });
             this.$router.push({
               path: '/'
+            })
+          } else {
+            this.$msgbox({
+              title: msgList[data.data.message],
             })
           }
         })
